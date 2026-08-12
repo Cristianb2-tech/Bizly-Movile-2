@@ -29,11 +29,12 @@ export default function ServicioCard({
   descripcion,
   categoria,
   imagen,
+  valor,
 }) {
   const mostrarDetalles = () => {
     Alert.alert(
       nombre,
-      `${descripcion}\n\nCategoría: ${categoria}`
+      `${descripcion}\n\nCategoría: ${categoria}\nValor: ${valor}`
     );
   };
 
@@ -44,7 +45,9 @@ export default function ServicioCard({
         style={styles.imagen}
       />
 
-      <Card.Content style={styles.contenido}>
+      <Card.Content
+        style={styles.contenido}
+      >
         <Text
           variant="titleLarge"
           style={styles.nombre}
@@ -62,9 +65,15 @@ export default function ServicioCard({
         <Text style={styles.categoria}>
           {categoria}
         </Text>
+
+        <Text style={styles.valor}>
+          {valor}
+        </Text>
       </Card.Content>
 
-      <Card.Actions style={styles.acciones}>
+      <Card.Actions
+        style={styles.acciones}
+      >
         <Button
           mode="contained"
           icon="eye"
@@ -91,7 +100,8 @@ const styles = StyleSheet.create({
 
   imagen: {
     height: 180,
-    backgroundColor: colores.secondaryLight,
+    backgroundColor:
+      colores.secondaryLight,
   },
 
   contenido: {
@@ -113,12 +123,20 @@ const styles = StyleSheet.create({
 
   categoria: {
     alignSelf: 'flex-start',
-    backgroundColor: colores.secondaryLight,
+    backgroundColor:
+      colores.secondaryLight,
     color: colores.primaryDark,
     borderRadius: 12,
     paddingHorizontal: 12,
     paddingVertical: 6,
     fontWeight: 'bold',
+  },
+
+  valor: {
+    marginTop: 12,
+    color: colores.primary,
+    fontWeight: 'bold',
+    fontSize: 17,
   },
 
   acciones: {

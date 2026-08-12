@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
-  Alert,
-  Image,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+  NavigationContainer,
+} from '@react-navigation/native';
 
 import {
-  Appbar,
-  FAB,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+
+import {
+  MaterialIcons,
+} from '@expo/vector-icons';
+
+import {
   MD3LightTheme,
   PaperProvider,
-  Text,
 } from 'react-native-paper';
 
 import {
   SafeAreaProvider,
-  SafeAreaView,
 } from 'react-native-safe-area-context';
 
-import ServicioCard from './componentes/ServicioCard';
-import logo from './assets/Logo.jpeg';
+import InicioScreen from './pantallas/InicioScreen';
+import ServiciosScreen from './pantallas/ServiciosScreen';
+import ContactoScreen from './pantallas/ContactoScreen';
 
-const colores = {
+const Tab = createBottomTabNavigator();
+
+const COLORS = {
   primary: '#2F80B7',
   primaryDark: '#175B85',
   secondary: '#8BCF1F',
@@ -43,274 +46,101 @@ const temaBizly = {
   colors: {
     ...MD3LightTheme.colors,
 
-    primary: colores.primary,
-    onPrimary: colores.white,
+    primary: COLORS.primary,
+    onPrimary: COLORS.white,
 
-    primaryContainer: colores.secondaryLight,
-    onPrimaryContainer: colores.textPrimary,
+    primaryContainer: COLORS.secondaryLight,
+    onPrimaryContainer: COLORS.textPrimary,
 
-    secondary: colores.secondary,
-    onSecondary: colores.textPrimary,
+    secondary: COLORS.secondary,
+    onSecondary: COLORS.textPrimary,
 
-    secondaryContainer: colores.secondaryLight,
-    onSecondaryContainer: colores.textPrimary,
+    secondaryContainer: COLORS.secondaryLight,
+    onSecondaryContainer: COLORS.textPrimary,
 
-    background: colores.background,
-    onBackground: colores.textPrimary,
+    background: COLORS.background,
+    onBackground: COLORS.textPrimary,
 
-    surface: colores.card,
-    onSurface: colores.textPrimary,
+    surface: COLORS.card,
+    onSurface: COLORS.textPrimary,
 
-    surfaceVariant: colores.secondaryLight,
-    onSurfaceVariant: colores.textSecondary,
-
-    outline: colores.border,
+    outline: COLORS.border,
   },
 };
 
-const serviciosIniciales = [
-  {
-    id: 1,
-    nombre: 'Gestión de inventario',
-    descripcion:
-      'Controla productos, existencias y alertas de stock bajo.',
-    categoria: 'Gestión operativa',
-    imagen:
-      'https://chatgpt.com/backend-api/estuary/content?id=file_000000004070820eb823d01c81452339&ts=496095&p=fs&cid=1&sig=3f0a480c7f8100076f72676ad165deac93a9b47c973d23d246f233f46974e259&v=0',
-  },
-  {
-    id: 2,
-    nombre: 'Registro de ventas',
-    descripcion:
-      'Registra transacciones y consulta el historial comercial.',
-    categoria: 'Gestión comercial',
-    imagen:
-      '',
-  },
-  {
-    id: 3,
-    nombre: 'Administración de clientes',
-    descripcion:
-      'Centraliza los datos y el seguimiento de cada cliente.',
-    categoria: 'Relación con clientes',
-    imagen:
-      '',
-  },
-  {
-    id: 4,
-    nombre: 'Reportes y estadísticas',
-    descripcion:
-      'Presenta indicadores para apoyar la toma de decisiones.',
-    categoria: 'Análisis del negocio',
-    imagen:
-      '',
-  },
-];
-
 export default function App() {
-  const [servicios, setServicios] =
-    useState(serviciosIniciales);
-
-  const agregarServicio = () => {
-    const yaExiste = servicios.some(
-      (servicio) =>
-        servicio.nombre === 'Soporte al cliente'
-    );
-
-    if (yaExiste) {
-      Alert.alert(
-        'Módulo existente',
-        'El servicio de soporte al cliente ya fue agregado.'
-      );
-
-      return;
-    }
-
-    const nuevoServicio = {
-      id: Date.now(),
-      nombre: 'Soporte al cliente',
-      descripcion:
-        'Permite orientar a los usuarios y resolver sus solicitudes.',
-      categoria: 'Atención al usuario',
-      imagen:
-        '',
-    };
-
-    setServicios((serviciosAnteriores) => [
-      ...serviciosAnteriores,
-      nuevoServicio,
-    ]);
-
-    Alert.alert(
-      'Módulo agregado',
-      'El módulo de soporte al cliente fue agregado correctamente.'
-    );
-  };
-
-  const mostrarMenu = () => {
-    Alert.alert(
-      'Menú de Bizly',
-      'Dashboard, inventario, ventas, clientes y reportes.'
-    );
-  };
-
   return (
     <SafeAreaProvider>
       <PaperProvider theme={temaBizly}>
-        <SafeAreaView style={styles.safeArea}>
-          <Appbar.Header style={styles.header}>
-            <Image
-              source={logo}
-              style={styles.logo}
-              resizeMode="contain"
-            />
+        <NavigationContainer>
+          <Tab.Navigator
+            initialRouteName="Inicio"
+            screenOptions={({ route }) => ({
+              headerShown: false,
 
-            <Appbar.Content
-              title="BIZLY"
-              subtitle="Gestión comercial para microempresas"
-              titleStyle={styles.tituloHeader}
-              subtitleStyle={styles.subtituloHeader}
-              style={styles.contenidoHeader}
-            />
+              tabBarActiveTintColor:
+                COLORS.primary,
 
-            <Appbar.Action
-              icon="menu"
-              iconColor={colores.white}
-              onPress={mostrarMenu}
-            />
-          </Appbar.Header>
+              tabBarInactiveTintColor:
+                COLORS.textSecondary,
 
-          <ScrollView
-            contentContainerStyle={styles.contenido}
-            showsVerticalScrollIndicator={false}
+              tabBarStyle: {
+                height: 68,
+                paddingTop: 7,
+                paddingBottom: 8,
+                backgroundColor: COLORS.white,
+                borderTopColor: COLORS.border,
+                borderTopWidth: 1,
+              },
+
+              tabBarLabelStyle: {
+                fontSize: 12,
+                fontWeight: 'bold',
+              },
+
+              tabBarIcon: ({
+                color,
+                size,
+              }) => {
+                let icono;
+
+                if (route.name === 'Inicio') {
+                  icono = 'home';
+                } else if (
+                  route.name === 'Servicios'
+                ) {
+                  icono = 'view-module';
+                } else {
+                  icono = 'contact-mail';
+                }
+
+                return (
+                  <MaterialIcons
+                    name={icono}
+                    size={size}
+                    color={color}
+                  />
+                );
+              },
+            })}
           >
-            <View style={styles.presentacion}>
-              <View style={styles.presentacionSuperior}>
-                <Image
-                  source={logo}
-                  style={styles.logoPresentacion}
-                  resizeMode="contain"
-                />
+            <Tab.Screen
+              name="Inicio"
+              component={InicioScreen}
+            />
 
-                <Text
-                  variant="headlineSmall"
-                  style={styles.titulo}
-                >
-                  Administra tu negocio en un solo lugar
-                </Text>
-              </View>
+            <Tab.Screen
+              name="Servicios"
+              component={ServiciosScreen}
+            />
 
-              <Text style={styles.textoPresentacion}>
-                Bizly centraliza los procesos comerciales,
-                administrativos y operativos de microempresas
-                y emprendimientos.
-              </Text>
-            </View>
-
-            {servicios.map((servicio) => (
-              <ServicioCard
-                key={servicio.id}
-                nombre={servicio.nombre}
-                descripcion={servicio.descripcion}
-                categoria={servicio.categoria}
-                imagen={servicio.imagen}
-              />
-            ))}
-
-            <View style={styles.espacioFinal} />
-          </ScrollView>
-
-          <FAB
-            icon="plus"
-            label="Agregar módulo"
-            style={styles.fab}
-            color={colores.white}
-            onPress={agregarServicio}
-          />
-        </SafeAreaView>
+            <Tab.Screen
+              name="Contacto"
+              component={ContactoScreen}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
       </PaperProvider>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colores.background,
-  },
-
-  header: {
-    backgroundColor: colores.primaryDark,
-    paddingHorizontal: 8,
-  },
-
-  logo: {
-    width: 48,
-    height: 48,
-    borderRadius: 10,
-    backgroundColor: colores.white,
-  },
-
-  contenidoHeader: {
-    marginLeft: 4,
-  },
-
-  tituloHeader: {
-    color: colores.white,
-    fontWeight: 'bold',
-  },
-
-  subtituloHeader: {
-    color: colores.secondaryLight,
-  },
-
-  contenido: {
-    padding: 16,
-    backgroundColor: colores.background,
-  },
-
-  presentacion: {
-    backgroundColor: colores.secondaryLight,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: colores.secondary,
-    padding: 18,
-    marginBottom: 18,
-  },
-
-  presentacionSuperior: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  logoPresentacion: {
-    width: 65,
-    height: 65,
-    borderRadius: 12,
-    marginRight: 12,
-    backgroundColor: colores.white,
-  },
-
-  titulo: {
-    flex: 1,
-    color: colores.primaryDark,
-    fontWeight: 'bold',
-  },
-
-  textoPresentacion: {
-    color: colores.textSecondary,
-    lineHeight: 20,
-    marginTop: 12,
-  },
-
-  espacioFinal: {
-    height: 90,
-  },
-
-  fab: {
-    position: 'absolute',
-    right: 18,
-    bottom: 18,
-    backgroundColor: colores.primary,
-  },
-});

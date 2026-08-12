@@ -1,6 +1,6 @@
 import React from 'react';
+
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -8,10 +8,15 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import { MaterialIcons } from '@expo/vector-icons';
+import {
+  SafeAreaView,
+} from 'react-native-safe-area-context';
 
-// Importación del logo local
-import logo from './assets/Logo.jpeg';
+import {
+  MaterialIcons,
+} from '@expo/vector-icons';
+
+import logo from '../assets/Logo.png';
 
 const COLORS = {
   primary: '#2F80B7',
@@ -30,44 +35,55 @@ const funcionalidades = [
   {
     id: 1,
     titulo: 'Productos',
-    descripcion: 'Registra, consulta y administra los productos del negocio.',
+    descripcion:
+      'Registra, consulta y administra los productos del negocio.',
     icono: 'inventory-2',
   },
   {
     id: 2,
     titulo: 'Inventario',
-    descripcion: 'Controla las entradas, salidas y existencias disponibles.',
+    descripcion:
+      'Controla las entradas, salidas y existencias disponibles.',
     icono: 'warehouse',
   },
   {
     id: 3,
     titulo: 'Ventas',
-    descripcion: 'Registra ventas y consulta las transacciones realizadas.',
+    descripcion:
+      'Registra ventas y consulta las transacciones realizadas.',
     icono: 'point-of-sale',
   },
   {
     id: 4,
     titulo: 'Clientes',
-    descripcion: 'Administra la información de los clientes registrados.',
+    descripcion:
+      'Administra la información de los clientes registrados.',
     icono: 'groups',
   },
   {
     id: 5,
     titulo: 'Reportes',
-    descripcion: 'Consulta reportes comerciales y resultados del negocio.',
+    descripcion:
+      'Consulta reportes comerciales y resultados del negocio.',
     icono: 'assessment',
   },
   {
     id: 6,
     titulo: 'Usuarios',
-    descripcion: 'Gestiona usuarios, roles y permisos de acceso.',
+    descripcion:
+      'Gestiona usuarios, roles y permisos de acceso.',
     icono: 'manage-accounts',
   },
 ];
 
-export default function App() {
+export default function InicioScreen({
+  navigation,
+}) {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={styles.safeArea}
+      edges={['top']}
+    >
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.content}
@@ -84,8 +100,16 @@ export default function App() {
               />
             </View>
 
-            <View style={styles.headerTextContainer}>
-              <Text style={styles.projectName}>Bizly</Text>
+            <View
+              style={
+                styles.headerTextContainer
+              }
+            >
+              <Text
+                style={styles.projectName}
+              >
+                Bizly
+              </Text>
 
               <Text style={styles.slogan}>
                 Smart Tools for Small Business
@@ -93,12 +117,17 @@ export default function App() {
             </View>
           </View>
 
-          <Text style={styles.welcomeTitle}>
+          <Text
+            style={styles.welcomeTitle}
+          >
             ¡Bienvenido a Bizly!
           </Text>
 
-          <Text style={styles.welcomeMessage}>
-            Administra tu negocio de manera sencilla, organizada y eficiente.
+          <Text
+            style={styles.welcomeMessage}
+          >
+            Administra tu negocio de manera
+            sencilla, organizada y eficiente.
           </Text>
         </View>
 
@@ -113,23 +142,32 @@ export default function App() {
           </View>
 
           <View style={styles.summaryText}>
-            <Text style={styles.summaryTitle}>
+            <Text
+              style={styles.summaryTitle}
+            >
               Panel principal
             </Text>
 
-            <Text style={styles.summaryDescription}>
-              Selecciona una función para comenzar a gestionar tu negocio.
+            <Text
+              style={
+                styles.summaryDescription
+              }
+            >
+              Selecciona una función para
+              comenzar a gestionar tu negocio.
             </Text>
           </View>
         </View>
 
-        {/* Título de la sección */}
+        {/* Título */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>
             Funcionalidades
           </Text>
 
-          <Text style={styles.sectionSubtitle}>
+          <Text
+            style={styles.sectionSubtitle}
+          >
             Herramientas disponibles
           </Text>
         </View>
@@ -137,8 +175,13 @@ export default function App() {
         {/* Tarjetas */}
         <View style={styles.cardsContainer}>
           {funcionalidades.map((item) => (
-            <View key={item.id} style={styles.card}>
-              <View style={styles.iconContainer}>
+            <View
+              key={item.id}
+              style={styles.card}
+            >
+              <View
+                style={styles.iconContainer}
+              >
                 <MaterialIcons
                   name={item.icono}
                   size={32}
@@ -150,12 +193,23 @@ export default function App() {
                 {item.titulo}
               </Text>
 
-              <Text style={styles.cardDescription}>
+              <Text
+                style={
+                  styles.cardDescription
+                }
+              >
                 {item.descripcion}
               </Text>
 
               <View style={styles.cardFooter}>
-                <Text style={styles.cardLink}>
+                <Text
+                  style={styles.cardLink}
+                  onPress={() =>
+                    navigation.navigate(
+                      'Servicios'
+                    )
+                  }
+                >
                   Abrir módulo
                 </Text>
 
@@ -178,7 +232,8 @@ export default function App() {
           />
 
           <Text style={styles.footerText}>
-            Bizly centraliza la información de tu empresa para facilitar la
+            Bizly centraliza la información
+            de tu empresa para facilitar la
             toma de decisiones.
           </Text>
         </View>
@@ -190,7 +245,7 @@ export default function App() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: COLORS.primaryDark,
+    backgroundColor: COLORS.primary,
   },
 
   container: {
@@ -218,14 +273,21 @@ const styles = StyleSheet.create({
   },
 
   logoContainer: {
-    width: 82,
-    aspectRatio: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 5,
-    borderRadius: 18,
-    backgroundColor: COLORS.white,
-  },
+  width: 82,
+  height: 82,
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: 20,
+  backgroundColor: COLORS.secondaryLight,
+  borderWidth: 2,
+  borderColor: COLORS.white,
+  padding: 6,
+},
+
+logo: {
+  width: '100%',
+  height: '100%',
+},
 
   logo: {
     width: '100%',
@@ -283,7 +345,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
-    backgroundColor: COLORS.secondaryLight,
+    backgroundColor:
+      COLORS.secondaryLight,
   },
 
   summaryText: {
@@ -385,9 +448,11 @@ const styles = StyleSheet.create({
     marginTop: 7,
     padding: 17,
     borderRadius: 16,
-    backgroundColor: COLORS.secondaryLight,
+    backgroundColor:
+      COLORS.secondaryLight,
     borderLeftWidth: 5,
-    borderLeftColor: COLORS.secondary,
+    borderLeftColor:
+      COLORS.secondary,
   },
 
   footerText: {
