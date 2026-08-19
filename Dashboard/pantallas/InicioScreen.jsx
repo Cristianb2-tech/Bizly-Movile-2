@@ -3,10 +3,16 @@ import React from 'react';
 import {
   ScrollView,
   View,
-  Text,
   Image,
   StyleSheet,
 } from 'react-native';
+
+import {
+  Avatar,
+  Button,
+  Card,
+  Text,
+} from 'react-native-paper';
 
 import {
   SafeAreaView,
@@ -38,66 +44,96 @@ const funcionalidades = [
     descripcion:
       'Registra, consulta y administra los productos del negocio.',
     icono: 'inventory-2',
+    ruta: 'Productos',
   },
+
   {
     id: 2,
     titulo: 'Inventario',
     descripcion:
       'Controla las entradas, salidas y existencias disponibles.',
     icono: 'warehouse',
+    ruta: 'Inventario',
   },
+
   {
     id: 3,
     titulo: 'Ventas',
     descripcion:
       'Registra ventas y consulta las transacciones realizadas.',
     icono: 'point-of-sale',
+    ruta: 'Ventas',
   },
+
   {
     id: 4,
     titulo: 'Clientes',
     descripcion:
       'Administra la información de los clientes registrados.',
     icono: 'groups',
+    ruta: 'Clientes',
   },
+
   {
     id: 5,
     titulo: 'Reportes',
     descripcion:
       'Consulta reportes comerciales y resultados del negocio.',
     icono: 'assessment',
+    ruta: 'Reportes',
   },
+
   {
     id: 6,
     titulo: 'Usuarios',
     descripcion:
       'Gestiona usuarios, roles y permisos de acceso.',
     icono: 'manage-accounts',
+    ruta: 'Usuarios',
   },
 ];
 
 export default function InicioScreen({
   navigation,
 }) {
+
+  const abrirModulo = (ruta) => {
+    navigation.navigate(ruta);
+  };
+
   return (
     <SafeAreaView
       style={styles.safeArea}
       edges={['top']}
     >
+
       <ScrollView
         style={styles.container}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
+        contentContainerStyle={
+          styles.content
+        }
+        showsVerticalScrollIndicator={
+          false
+        }
       >
-        {/* Encabezado */}
+
+        {/* ENCABEZADO */}
         <View style={styles.header}>
+
           <View style={styles.headerTop}>
-            <View style={styles.logoContainer}>
+
+            <View
+              style={
+                styles.logoContainer
+              }
+            >
+
               <Image
                 source={logo}
                 style={styles.logo}
                 resizeMode="contain"
               />
+
             </View>
 
             <View
@@ -105,6 +141,7 @@ export default function InicioScreen({
                 styles.headerTextContainer
               }
             >
+
               <Text
                 style={styles.projectName}
               >
@@ -114,7 +151,9 @@ export default function InicioScreen({
               <Text style={styles.slogan}>
                 Smart Tools for Small Business
               </Text>
+
             </View>
+
           </View>
 
           <Text
@@ -124,144 +163,237 @@ export default function InicioScreen({
           </Text>
 
           <Text
-            style={styles.welcomeMessage}
+            style={
+              styles.welcomeMessage
+            }
           >
             Administra tu negocio de manera
             sencilla, organizada y eficiente.
           </Text>
+
         </View>
 
-        {/* Resumen */}
-        <View style={styles.summaryCard}>
-          <View style={styles.summaryIcon}>
-            <MaterialIcons
-              name="dashboard"
-              size={28}
+        {/* PANEL PRINCIPAL */}
+        <Card style={styles.summaryCard}>
+
+          <Card.Content
+            style={
+              styles.summaryContent
+            }
+          >
+
+            <Avatar.Icon
+              size={52}
+              icon="view-dashboard"
               color={COLORS.secondary}
-            />
-          </View>
-
-          <View style={styles.summaryText}>
-            <Text
-              style={styles.summaryTitle}
-            >
-              Panel principal
-            </Text>
-
-            <Text
               style={
-                styles.summaryDescription
+                styles.summaryAvatar
+              }
+            />
+
+            <View
+              style={
+                styles.summaryText
               }
             >
-              Selecciona una función para
-              comenzar a gestionar tu negocio.
-            </Text>
-          </View>
-        </View>
 
-        {/* Título */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>
-            Funcionalidades
-          </Text>
-
-          <Text
-            style={styles.sectionSubtitle}
-          >
-            Herramientas disponibles
-          </Text>
-        </View>
-
-        {/* Tarjetas */}
-        <View style={styles.cardsContainer}>
-          {funcionalidades.map((item) => (
-            <View
-              key={item.id}
-              style={styles.card}
-            >
-              <View
-                style={styles.iconContainer}
+              <Text
+                variant="titleMedium"
+                style={
+                  styles.summaryTitle
+                }
               >
-                <MaterialIcons
-                  name={item.icono}
-                  size={32}
-                  color={COLORS.primary}
-                />
-              </View>
-
-              <Text style={styles.cardTitle}>
-                {item.titulo}
+                Panel principal
               </Text>
 
               <Text
                 style={
-                  styles.cardDescription
+                  styles.summaryDescription
                 }
               >
-                {item.descripcion}
+                Selecciona una función para
+                comenzar a gestionar tu
+                negocio.
               </Text>
 
-              <View style={styles.cardFooter}>
-                <Text
-                  style={styles.cardLink}
-                  onPress={() =>
-                    navigation.navigate(
-                      'Servicios'
-                    )
+            </View>
+
+          </Card.Content>
+
+        </Card>
+
+        {/* TÍTULO FUNCIONALIDADES */}
+        <View
+          style={styles.sectionHeader}
+        >
+
+          <Text
+            style={styles.sectionTitle}
+          >
+            Funcionalidades
+          </Text>
+
+          <Text
+            style={
+              styles.sectionSubtitle
+            }
+          >
+            Herramientas disponibles
+          </Text>
+
+        </View>
+
+        {/* TARJETAS */}
+        <View
+          style={styles.cardsContainer}
+        >
+
+          {funcionalidades.map(
+            (item) => (
+
+              <Card
+                key={item.id}
+                style={styles.card}
+              >
+
+                <Card.Content
+                  style={
+                    styles.cardContent
                   }
                 >
-                  Abrir módulo
-                </Text>
 
-                <MaterialIcons
-                  name="arrow-forward"
-                  size={18}
-                  color={COLORS.secondary}
-                />
-              </View>
-            </View>
-          ))}
+                  <View
+                    style={
+                      styles.iconContainer
+                    }
+                  >
+
+                    <MaterialIcons
+                      name={item.icono}
+                      size={32}
+                      color={
+                        COLORS.primary
+                      }
+                    />
+
+                  </View>
+
+                  <Text
+                    style={
+                      styles.cardTitle
+                    }
+                  >
+                    {item.titulo}
+                  </Text>
+
+                  <Text
+                    style={
+                      styles.cardDescription
+                    }
+                  >
+                    {item.descripcion}
+                  </Text>
+
+                </Card.Content>
+
+                <Card.Actions
+                  style={
+                    styles.cardActions
+                  }
+                >
+
+                  <Button
+                    mode="text"
+                    compact
+                    textColor={
+                      COLORS.primary
+                    }
+                    icon="arrow-right"
+                    contentStyle={{
+                      flexDirection:
+                        'row-reverse',
+                    }}
+                    labelStyle={
+                      styles.buttonLabel
+                    }
+                    onPress={() =>
+                      abrirModulo(
+                        item.ruta
+                      )
+                    }
+                  >
+                    Abrir módulo
+                  </Button>
+
+                </Card.Actions>
+
+              </Card>
+
+            )
+          )}
+
         </View>
 
-        {/* Mensaje inferior */}
-        <View style={styles.footerCard}>
-          <MaterialIcons
-            name="lightbulb"
-            size={25}
-            color={COLORS.secondary}
-          />
+        {/* MENSAJE INFERIOR */}
+        <Card style={styles.footerCard}>
 
-          <Text style={styles.footerText}>
-            Bizly centraliza la información
-            de tu empresa para facilitar la
-            toma de decisiones.
-          </Text>
-        </View>
+          <Card.Content
+            style={styles.footerContent}
+          >
+
+            <Avatar.Icon
+              size={45}
+              icon="lightbulb-outline"
+              color={COLORS.secondary}
+              style={styles.footerAvatar}
+            />
+
+            <Text
+              style={styles.footerText}
+            >
+              Bizly centraliza la información
+              de tu empresa para facilitar la
+              toma de decisiones.
+            </Text>
+
+          </Card.Content>
+
+        </Card>
+
       </ScrollView>
+
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+
   safeArea: {
     flex: 1,
-    backgroundColor: COLORS.primary,
+    backgroundColor:
+      COLORS.primary,
   },
 
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor:
+      COLORS.background,
   },
 
   content: {
     paddingBottom: 35,
   },
 
+  /*
+   * ENCABEZADO
+   */
+
   header: {
     paddingTop: 20,
     paddingHorizontal: 20,
     paddingBottom: 30,
-    backgroundColor: COLORS.primary,
+    backgroundColor:
+      COLORS.primary,
     borderBottomLeftRadius: 28,
     borderBottomRightRadius: 28,
   },
@@ -273,26 +405,22 @@ const styles = StyleSheet.create({
   },
 
   logoContainer: {
-  width: 82,
-  height: 82,
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: 20,
-  backgroundColor: COLORS.secondaryLight,
-  borderWidth: 2,
-  borderColor: COLORS.white,
-  padding: 6,
-},
-
-logo: {
-  width: '100%',
-  height: '100%',
-},
+    width: 82,
+    height: 82,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    backgroundColor:
+      COLORS.secondaryLight,
+    borderWidth: 2,
+    borderColor:
+      COLORS.white,
+    padding: 6,
+  },
 
   logo: {
     width: '100%',
     height: '100%',
-    borderRadius: 12,
   },
 
   headerTextContainer: {
@@ -325,26 +453,29 @@ logo: {
     color: '#E7F4FA',
   },
 
+  /*
+   * PANEL PRINCIPAL
+   */
+
   summaryCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginTop: -15,
     marginHorizontal: 18,
     marginBottom: 25,
-    padding: 16,
     borderRadius: 16,
-    backgroundColor: COLORS.card,
+    backgroundColor:
+      COLORS.card,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor:
+      COLORS.border,
     elevation: 4,
   },
 
-  summaryIcon: {
-    width: 50,
-    aspectRatio: 1,
-    justifyContent: 'center',
+  summaryContent: {
+    flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 25,
+  },
+
+  summaryAvatar: {
     backgroundColor:
       COLORS.secondaryLight,
   },
@@ -355,17 +486,22 @@ logo: {
   },
 
   summaryTitle: {
-    fontSize: 17,
     fontWeight: 'bold',
-    color: COLORS.textPrimary,
+    color:
+      COLORS.textPrimary,
   },
 
   summaryDescription: {
     marginTop: 3,
     fontSize: 13,
     lineHeight: 18,
-    color: COLORS.textSecondary,
+    color:
+      COLORS.textSecondary,
   },
+
+  /*
+   * TÍTULOS
+   */
 
   sectionHeader: {
     marginHorizontal: 18,
@@ -375,84 +511,110 @@ logo: {
   sectionTitle: {
     fontSize: 23,
     fontWeight: 'bold',
-    color: COLORS.textPrimary,
+    color:
+      COLORS.textPrimary,
   },
 
   sectionSubtitle: {
     marginTop: 3,
     fontSize: 14,
-    color: COLORS.textSecondary,
+    color:
+      COLORS.textSecondary,
   },
+
+  /*
+   * TARJETAS
+   */
 
   cardsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent:
+      'space-between',
     paddingHorizontal: 18,
   },
 
   card: {
     width: '48%',
-    minHeight: 225,
-    justifyContent: 'space-between',
+    minHeight: 235,
     marginBottom: 16,
-    padding: 16,
     borderRadius: 17,
-    backgroundColor: COLORS.card,
+    backgroundColor:
+      COLORS.card,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor:
+      COLORS.border,
     elevation: 4,
+  },
+
+  cardContent: {
+    flex: 1,
+    paddingBottom: 0,
   },
 
   iconContainer: {
     width: 56,
-    aspectRatio: 1,
-    justifyContent: 'center',
+    height: 56,
+    justifyContent:
+      'center',
     alignItems: 'center',
     borderRadius: 16,
-    backgroundColor: '#E5F3FB',
+    backgroundColor:
+      '#E5F3FB',
   },
 
   cardTitle: {
     marginTop: 14,
     fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.textPrimary,
+    color:
+      COLORS.textPrimary,
   },
 
   cardDescription: {
-    flex: 1,
     marginTop: 8,
     fontSize: 13,
     lineHeight: 19,
-    color: COLORS.textSecondary,
+    color:
+      COLORS.textSecondary,
   },
 
-  cardFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 14,
+  cardActions: {
+    justifyContent:
+      'flex-start',
+    paddingHorizontal: 8,
+    paddingBottom: 8,
   },
 
-  cardLink: {
-    marginRight: 5,
-    fontSize: 13,
+  buttonLabel: {
+    fontSize: 12,
     fontWeight: 'bold',
-    color: COLORS.primary,
   },
+
+  /*
+   * TARJETA INFERIOR
+   */
 
   footerCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginHorizontal: 18,
     marginTop: 7,
-    padding: 17,
     borderRadius: 16,
     backgroundColor:
       COLORS.secondaryLight,
     borderLeftWidth: 5,
     borderLeftColor:
       COLORS.secondary,
+    elevation: 0,
+  },
+
+  footerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  footerAvatar: {
+    backgroundColor:
+      COLORS.white,
   },
 
   footerText: {
@@ -460,6 +622,8 @@ logo: {
     marginLeft: 12,
     fontSize: 14,
     lineHeight: 20,
-    color: COLORS.textPrimary,
+    color:
+      COLORS.textPrimary,
   },
+
 });

@@ -9,6 +9,10 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import {
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
+
+import {
   MaterialIcons,
 } from '@expo/vector-icons';
 
@@ -21,11 +25,38 @@ import {
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
 
-import InicioScreen from './pantallas/InicioScreen';
-import ServiciosScreen from './pantallas/ServiciosScreen';
-import ContactoScreen from './pantallas/ContactoScreen';
+import InicioScreen
+  from './pantallas/InicioScreen';
 
-const Tab = createBottomTabNavigator();
+import ServiciosScreen
+  from './pantallas/ServiciosScreen';
+
+import ContactoScreen
+  from './pantallas/ContactoScreen';
+
+import ProductosScreen
+  from './pantallas/ProductosScreen';
+
+import CrearProductoScreen
+  from './pantallas/CrearProductoScreen';
+
+import {
+  InventarioScreen,
+  VentasScreen,
+  ClientesScreen,
+  ReportesScreen,
+  UsuariosScreen,
+} from './pantallas/ModulosBasicos';
+
+import {
+  ProductosProvider,
+} from './contextos/ProductosContext';
+
+const Tab =
+  createBottomTabNavigator();
+
+const Stack =
+  createNativeStackNavigator();
 
 const COLORS = {
   primary: '#2F80B7',
@@ -46,101 +77,202 @@ const temaBizly = {
   colors: {
     ...MD3LightTheme.colors,
 
-    primary: COLORS.primary,
-    onPrimary: COLORS.white,
+    primary:
+      COLORS.primary,
 
-    primaryContainer: COLORS.secondaryLight,
-    onPrimaryContainer: COLORS.textPrimary,
+    onPrimary:
+      COLORS.white,
 
-    secondary: COLORS.secondary,
-    onSecondary: COLORS.textPrimary,
+    secondary:
+      COLORS.secondary,
 
-    secondaryContainer: COLORS.secondaryLight,
-    onSecondaryContainer: COLORS.textPrimary,
+    background:
+      COLORS.background,
 
-    background: COLORS.background,
-    onBackground: COLORS.textPrimary,
+    surface:
+      COLORS.card,
 
-    surface: COLORS.card,
-    onSurface: COLORS.textPrimary,
+    onSurface:
+      COLORS.textPrimary,
 
-    outline: COLORS.border,
+    outline:
+      COLORS.border,
   },
 };
 
+function TabsPrincipales() {
+
+  return (
+    <Tab.Navigator
+      initialRouteName="Inicio"
+
+      screenOptions={({
+        route,
+      }) => ({
+
+        headerShown: false,
+
+        tabBarActiveTintColor:
+          COLORS.primary,
+
+        tabBarInactiveTintColor:
+          COLORS.textSecondary,
+
+        tabBarStyle: {
+          height: 68,
+          paddingTop: 7,
+          paddingBottom: 8,
+          backgroundColor:
+            COLORS.white,
+          borderTopColor:
+            COLORS.border,
+        },
+
+        tabBarIcon: ({
+          color,
+          size,
+        }) => {
+
+          let icono;
+
+          if (
+            route.name === 'Inicio'
+          ) {
+
+            icono = 'home';
+
+          } else if (
+            route.name ===
+            'Servicios'
+          ) {
+
+            icono = 'view-module';
+
+          } else {
+
+            icono =
+              'contact-mail';
+          }
+
+          return (
+            <MaterialIcons
+              name={icono}
+              size={size}
+              color={color}
+            />
+          );
+        },
+
+      })}
+    >
+
+      <Tab.Screen
+        name="Inicio"
+        component={InicioScreen}
+      />
+
+      <Tab.Screen
+        name="Servicios"
+        component={
+          ServiciosScreen
+        }
+      />
+
+      <Tab.Screen
+        name="Contacto"
+        component={
+          ContactoScreen
+        }
+      />
+
+    </Tab.Navigator>
+  );
+}
+
 export default function App() {
+
   return (
     <SafeAreaProvider>
-      <PaperProvider theme={temaBizly}>
-        <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName="Inicio"
-            screenOptions={({ route }) => ({
-              headerShown: false,
 
-              tabBarActiveTintColor:
-                COLORS.primary,
+      <PaperProvider
+        theme={temaBizly}
+      >
 
-              tabBarInactiveTintColor:
-                COLORS.textSecondary,
+        <ProductosProvider>
 
-              tabBarStyle: {
-                height: 68,
-                paddingTop: 7,
-                paddingBottom: 8,
-                backgroundColor: COLORS.white,
-                borderTopColor: COLORS.border,
-                borderTopWidth: 1,
-              },
+          <NavigationContainer>
 
-              tabBarLabelStyle: {
-                fontSize: 12,
-                fontWeight: 'bold',
-              },
+            <Stack.Navigator
+              initialRouteName="Principal"
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
 
-              tabBarIcon: ({
-                color,
-                size,
-              }) => {
-                let icono;
-
-                if (route.name === 'Inicio') {
-                  icono = 'home';
-                } else if (
-                  route.name === 'Servicios'
-                ) {
-                  icono = 'view-module';
-                } else {
-                  icono = 'contact-mail';
+              <Stack.Screen
+                name="Principal"
+                component={
+                  TabsPrincipales
                 }
+              />
 
-                return (
-                  <MaterialIcons
-                    name={icono}
-                    size={size}
-                    color={color}
-                  />
-                );
-              },
-            })}
-          >
-            <Tab.Screen
-              name="Inicio"
-              component={InicioScreen}
-            />
+              <Stack.Screen
+                name="Productos"
+                component={
+                  ProductosScreen
+                }
+              />
 
-            <Tab.Screen
-              name="Servicios"
-              component={ServiciosScreen}
-            />
+              <Stack.Screen
+                name="CrearProducto"
+                component={
+                  CrearProductoScreen
+                }
+              />
 
-            <Tab.Screen
-              name="Contacto"
-              component={ContactoScreen}
-            />
-          </Tab.Navigator>
-        </NavigationContainer>
+              <Stack.Screen
+                name="Inventario"
+                component={
+                  InventarioScreen
+                }
+              />
+
+              <Stack.Screen
+                name="Ventas"
+                component={
+                  VentasScreen
+                }
+              />
+
+              <Stack.Screen
+                name="Clientes"
+                component={
+                  ClientesScreen
+                }
+              />
+
+              <Stack.Screen
+                name="Reportes"
+                component={
+                  ReportesScreen
+                }
+              />
+
+              <Stack.Screen
+                name="Usuarios"
+                component={
+                  UsuariosScreen
+                }
+              />
+
+            </Stack.Navigator>
+
+          </NavigationContainer>
+
+        </ProductosProvider>
+
       </PaperProvider>
+
     </SafeAreaProvider>
   );
 }
