@@ -25,6 +25,12 @@ import {
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
 
+import InicioSesionScreen
+  from './pantallas/InicioSesionScreen';
+
+import RegistroScreen
+  from './pantallas/RegistroScreen';
+
 import InicioScreen
   from './pantallas/InicioScreen';
 
@@ -106,9 +112,7 @@ function TabsPrincipales() {
     <Tab.Navigator
       initialRouteName="Inicio"
 
-      screenOptions={({
-        route,
-      }) => ({
+      screenOptions={({ route }) => ({
 
         headerShown: false,
 
@@ -203,11 +207,27 @@ export default function App() {
           <NavigationContainer>
 
             <Stack.Navigator
-              initialRouteName="Principal"
+              initialRouteName=
+                "InicioSesion"
+
               screenOptions={{
                 headerShown: false,
               }}
             >
+
+              <Stack.Screen
+                name="InicioSesion"
+                component={
+                  InicioSesionScreen
+                }
+              />
+
+              <Stack.Screen
+                name="Registro"
+                component={
+                  RegistroScreen
+                }
+              />
 
               <Stack.Screen
                 name="Principal"

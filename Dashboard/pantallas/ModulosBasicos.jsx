@@ -9,6 +9,7 @@ import {
 import {
   Appbar,
   Avatar,
+  Button,
   Card,
   Chip,
   Text,
@@ -37,6 +38,7 @@ function PantallaModulo({
   subtitulo,
   icono,
   items,
+  mostrarRegistro = false,
 }) {
 
   return (
@@ -75,7 +77,9 @@ function PantallaModulo({
         }
       >
 
-        <Card style={styles.heroCard}>
+        <Card
+          style={styles.heroCard}
+        >
 
           <Card.Content
             style={styles.heroContent}
@@ -154,6 +158,31 @@ function PantallaModulo({
 
         ))}
 
+        {mostrarRegistro && (
+
+          <Button
+            mode="contained"
+            icon="account-plus"
+            buttonColor={
+              COLORS.primary
+            }
+            textColor={
+              COLORS.white
+            }
+            style={
+              styles.botonRegistro
+            }
+            onPress={() =>
+              navigation.navigate(
+                'Registro'
+              )
+            }
+          >
+            Registrar usuario
+          </Button>
+
+        )}
+
       </ScrollView>
 
     </SafeAreaView>
@@ -173,26 +202,32 @@ export function InventarioScreen(
       items={[
         {
           id: 1,
-          titulo: 'Camiseta básica',
+          titulo:
+            'Camiseta básica',
           descripcion:
             '18 unidades disponibles.',
-          estado: 'Stock estable',
+          estado:
+            'Stock estable',
         },
 
         {
           id: 2,
-          titulo: 'Gorra urbana',
+          titulo:
+            'Gorra urbana',
           descripcion:
             '12 unidades disponibles.',
-          estado: 'Stock estable',
+          estado:
+            'Stock estable',
         },
 
         {
           id: 3,
-          titulo: 'Mochila clásica',
+          titulo:
+            'Mochila clásica',
           descripcion:
             '8 unidades disponibles.',
-          estado: 'Revisar stock',
+          estado:
+            'Revisar stock',
         },
       ]}
     />
@@ -212,18 +247,22 @@ export function VentasScreen(
       items={[
         {
           id: 1,
-          titulo: 'Venta #1048',
+          titulo:
+            'Venta #1048',
           descripcion:
             '$85.000 COP · 2 productos',
-          estado: 'Completada',
+          estado:
+            'Completada',
         },
 
         {
           id: 2,
-          titulo: 'Venta #1047',
+          titulo:
+            'Venta #1047',
           descripcion:
             '$35.000 COP · 1 producto',
-          estado: 'Completada',
+          estado:
+            'Completada',
         },
       ]}
     />
@@ -243,18 +282,22 @@ export function ClientesScreen(
       items={[
         {
           id: 1,
-          titulo: 'Laura Gómez',
+          titulo:
+            'Laura Gómez',
           descripcion:
             'Cliente frecuente',
-          estado: 'Activo',
+          estado:
+            'Activo',
         },
 
         {
           id: 2,
-          titulo: 'Andrés Ruiz',
+          titulo:
+            'Andrés Ruiz',
           descripcion:
             'Cliente registrado',
-          estado: 'Activo',
+          estado:
+            'Activo',
         },
       ]}
     />
@@ -278,7 +321,8 @@ export function ReportesScreen(
             'Ventas del mes',
           descripcion:
             '$2.450.000 COP acumulados.',
-          estado: '+12%',
+          estado:
+            '+12%',
         },
 
         {
@@ -305,6 +349,7 @@ export function UsuariosScreen(
       titulo="Usuarios"
       subtitulo="Usuarios y roles de acceso."
       icono="account-cog"
+      mostrarRegistro={true}
       items={[
         {
           id: 1,
@@ -312,15 +357,18 @@ export function UsuariosScreen(
             'Administrador',
           descripcion:
             'Acceso completo.',
-          estado: 'Activo',
+          estado:
+            'Activo',
         },
 
         {
           id: 2,
-          titulo: 'Vendedor',
+          titulo:
+            'Vendedor',
           descripcion:
             'Acceso a ventas y clientes.',
-          estado: 'Activo',
+          estado:
+            'Activo',
         },
       ]}
     />
@@ -342,7 +390,8 @@ const styles =
     },
 
     headerTitle: {
-      color: COLORS.white,
+      color:
+        COLORS.white,
       fontWeight: 'bold',
     },
 
@@ -415,10 +464,16 @@ const styles =
     },
 
     chip: {
-      alignSelf: 'flex-start',
+      alignSelf:
+        'flex-start',
       marginTop: 12,
       backgroundColor:
         COLORS.secondaryLight,
+    },
+
+    botonRegistro: {
+      marginTop: 5,
+      marginBottom: 20,
     },
 
   });
