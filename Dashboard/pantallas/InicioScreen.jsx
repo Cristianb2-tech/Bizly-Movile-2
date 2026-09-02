@@ -91,6 +91,14 @@ const funcionalidades = [
     icono: 'manage-accounts',
     ruta: 'Usuarios',
   },
+  {
+  id: 7,
+  titulo: 'Solicitudes',
+  descripcion:
+    'Gestiona solicitudes y realiza aprobaciones.',
+  icono: 'assignment',
+  ruta: 'Solicitudes',
+},
 ];
 
 export default function InicioScreen({
