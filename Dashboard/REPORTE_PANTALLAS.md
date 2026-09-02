@@ -1,114 +1,150 @@
-# Reporte de Pantallas Desarrolladas - Bizly
+# REPORTE DE PANTALLAS – BIZLY
 
-## Proyecto Productivo
+## 1. Descripción del proyecto
 
-Bizly es una aplicación móvil orientada a la gestión de las operaciones básicas de un negocio.
+Bizly es una aplicación móvil orientada a la gestión de las operaciones básicas de un negocio. Durante el desarrollo del proyecto se construyeron diferentes pantallas destinadas a organizar y consultar información relacionada con productos, inventario, ventas, clientes, reportes, usuarios y servicios.
 
-Durante el proceso de desarrollo se construyeron y organizaron las pantallas necesarias para permitir la navegación entre los diferentes módulos de la aplicación.
+La aplicación cuenta con una pantalla de inicio de sesión y una pantalla de registro de usuarios. Después de iniciar sesión, el usuario puede acceder al panel principal y a los diferentes módulos disponibles.
 
-## Pantallas desarrolladas
+## 2. Pantallas desarrolladas
 
-### 1. Inicio de sesión
+### 2.1 Inicio de sesión
 
-La pantalla de inicio de sesión permite ingresar un correo y una contraseña para acceder al sistema.
+La pantalla de Inicio de sesión permite ingresar el correo electrónico y la contraseña del usuario.
 
-También permite dirigirse a la pantalla de registro para crear una cuenta.
+Cuenta con un botón para iniciar sesión y permite acceder al registro cuando el usuario todavía no tiene una cuenta.
 
-### 2. Registro
+### 2.2 Registro
 
-La pantalla de registro permite ingresar el nombre, correo y contraseña de un nuevo usuario.
+La pantalla de Registro permite crear un usuario mediante los datos solicitados por la aplicación.
 
-### 3. Inicio
+### 2.3 Inicio
 
-La pantalla de inicio funciona como panel principal de Bizly.
+La pantalla de Inicio funciona como el panel principal de Bizly.
 
-Desde esta pantalla el usuario puede acceder a:
+Presenta el nombre y logotipo de la aplicación, además de las funcionalidades disponibles.
 
+Desde esta pantalla se puede acceder a los diferentes módulos de la aplicación.
+
+### 2.4 Productos
+
+La pantalla de Productos permite consultar los productos registrados.
+
+Cada producto presenta información relacionada con su nombre, precio, stock y categoría.
+
+También cuenta con la opción para crear un nuevo producto.
+
+### 2.5 Crear producto
+
+La pantalla de Crear producto permite registrar un nuevo artículo.
+
+El usuario puede ingresar la información correspondiente al producto y utilizar la cámara del dispositivo para registrar una fotografía.
+
+La fotografía tomada se muestra como vista previa dentro de la misma pantalla antes de guardar el producto.
+
+### 2.6 Inventario
+
+La pantalla de Inventario permite visualizar información relacionada con las existencias y disponibilidad de los productos.
+
+### 2.7 Ventas
+
+La pantalla de Ventas permite consultar información relacionada con las transacciones realizadas en el negocio.
+
+### 2.8 Clientes
+
+La pantalla de Clientes permite visualizar información relacionada con los clientes registrados en el sistema.
+
+### 2.9 Reportes
+
+La pantalla de Reportes permite consultar información relacionada con la operación del negocio.
+
+### 2.10 Usuarios
+
+La pantalla de Usuarios permite visualizar información relacionada con los usuarios y roles disponibles dentro de la aplicación.
+
+### 2.11 Servicios
+
+La pantalla de Servicios presenta los servicios y funcionalidades disponibles dentro de Bizly.
+
+### 2.12 Contacto
+
+La pantalla de Contacto presenta la información de contacto asociada al proyecto.
+
+## 3. Navegación implementada
+
+La aplicación utiliza React Navigation para realizar la navegación entre las diferentes pantallas.
+
+Se implementó navegación mediante Native Stack Navigator y Bottom Tab Navigator.
+
+El flujo principal permite acceder desde el inicio de sesión al registro y posteriormente a las diferentes secciones de la aplicación.
+
+Entre las secciones desarrolladas se encuentran:
+
+- Inicio
 - Productos
 - Inventario
 - Ventas
 - Clientes
 - Reportes
 - Usuarios
-
-### 4. Productos
-
-La pantalla Productos permite visualizar los productos registrados en la aplicación.
-
-También permite acceder a la creación de un nuevo producto.
-
-### 5. Crear Producto
-
-Permite registrar la información de un producto.
-
-Esta pantalla utiliza la cámara del dispositivo para tomar una fotografía del producto y mostrar una vista previa antes de registrarlo.
-
-### 6. Inventario
-
-Permite visualizar información relacionada con las existencias de los productos y su disponibilidad.
-
-### 7. Ventas
-
-Permite consultar información relacionada con las ventas realizadas en el negocio.
-
-### 8. Clientes
-
-Permite visualizar los clientes registrados en el sistema.
-
-### 9. Reportes
-
-Permite consultar indicadores relacionados con la operación del negocio.
-
-### 10. Usuarios
-
-Permite visualizar los usuarios y roles disponibles dentro de la aplicación.
-
-Desde esta pantalla se puede acceder al registro de un nuevo usuario.
-
-### 11. Servicios
-
-Presenta los servicios y funcionalidades disponibles dentro de Bizly.
-
-### 12. Contacto
-
-Presenta la información de contacto asociada al proyecto.
-
-## Navegación
-
-La aplicación utiliza React Navigation.
-
-Se implementó Native Stack Navigator para navegar entre las pantallas internas y Bottom Tab Navigator para las secciones principales.
-
-El flujo principal es:
-
-Inicio de sesión → Inicio
-
-Inicio de sesión → Registro
-
-Inicio → Productos → Crear Producto
-
-Inicio → Inventario
-
-Inicio → Ventas
-
-Inicio → Clientes
-
-Inicio → Reportes
-
-Inicio → Usuarios → Registro
-
-También se puede acceder desde la navegación inferior a:
-
-- Inicio
 - Servicios
 - Contacto
 
-## Uso de la cámara
+Dentro del módulo de Productos también se puede acceder a la pantalla de Crear Producto.
 
-La cámara se implementó dentro del módulo de creación de productos.
+## 4. Integración de la cámara
 
-El usuario puede abrir la cámara del dispositivo, tomar una fotografía y visualizar la imagen capturada antes de registrar el producto.
+La cámara fue integrada en el módulo de Crear Producto.
 
-## Uso del giroscopio
+Esta funcionalidad permite tomar una fotografía del producto utilizando la cámara del dispositivo.
 
-No se implementó el giroscopio debido a que las funcionalidades actuales de Bizly no requieren detectar la rotación, inclinación o velocidad angular del dispositivo.
+La fotografía capturada se almacena en el estado local de la pantalla y posteriormente se muestra como vista previa.
+
+El flujo de esta funcionalidad es:
+
+Crear producto → Abrir cámara → Tomar fotografía → Vista previa → Guardar producto
+
+Para implementar esta funcionalidad se utiliza la librería expo-camera.
+
+## 5. Giroscopio
+
+Durante el desarrollo actual de Bizly no se implementó el giroscopio.
+
+Las funcionalidades desarrolladas actualmente no requieren detectar la rotación o inclinación del dispositivo.
+
+## 6. Tecnologías utilizadas
+
+- React Native
+- Expo
+- React Navigation
+- React Native Paper
+- Expo Camera
+- React Native Screens
+- React Native Safe Area Context
+
+## 7. Estructura general
+
+El proyecto contiene las pantallas, componentes, contextos y recursos utilizados para desarrollar la aplicación Bizly.
+
+Las pantallas principales desarrolladas corresponden a:
+
+- Inicio de sesión
+- Registro
+- Inicio
+- Productos
+- Crear Producto
+- Inventario
+- Ventas
+- Clientes
+- Reportes
+- Usuarios
+- Servicios
+- Contacto
+
+## 8. Conclusión
+
+Durante el desarrollo del proyecto productivo Bizly se construyeron las diferentes pantallas necesarias para el funcionamiento básico de la aplicación.
+
+Se implementó la navegación entre las pantallas y se integró la cámara en el módulo de creación de productos para registrar evidencia fotográfica.
+
+De esta manera se completó el flujo básico de navegación y las funcionalidades desarrolladas durante los talleres.
