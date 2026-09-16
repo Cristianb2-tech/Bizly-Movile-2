@@ -1,213 +1,353 @@
-import React from 'react';
+import React, {
+  useContext
+} from 'react';
+
 
 import {
-  NavigationContainer,
+  NavigationContainer
 } from '@react-navigation/native';
 
+
 import {
-  createNativeStackNavigator,
+  createNativeStackNavigator
 } from '@react-navigation/native-stack';
 
-import {
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+
 
 import {
-  ProductosProvider,
+  AuthProvider,
+  AuthContext
+} from './contextos/AuthContext';
+
+
+
+import {
+  ProductosProvider
 } from './contextos/ProductosContext';
 
+
+
 import InicioSesionScreen
-  from './pantallas/InicioSesionScreen';
+from './pantallas/InicioSesionScreen';
+
 
 import RegistroScreen
-  from './pantallas/RegistroScreen';
+from './pantallas/RegistroScreen';
+
 
 import InicioScreen
-  from './pantallas/InicioScreen';
+from './pantallas/InicioScreen';
+
+
 
 import ProductosScreen
-  from './pantallas/ProductosScreen';
+from './pantallas/ProductosScreen';
+
 
 import CrearProductoScreen
-  from './pantallas/CrearProductoScreen';
+from './pantallas/CrearProductoScreen';
 
-import ModulosBasicos
-  from './pantallas/ModulosBasicos';
 
-import ServiciosScreen
-  from './pantallas/ServiciosScreen';
 
-import ContactoScreen
-  from './pantallas/ContactoScreen';
+import {
+  InventarioScreen,
+  VentasScreen,
+  ClientesScreen,
+  ReportesScreen,
+  UsuariosScreen
+} from './pantallas/ModulosBasicos';
+
+
 
 import SolicitudesScreen
-  from './pantallas/SolicitudesScreen';
+from './pantallas/SolicitudesScreen';
+
 
 import DetalleSolicitudScreen
-  from './pantallas/DetalleSolicitudScreen';
+from './pantallas/DetalleSolicitudScreen';
 
 
-const Stack = createNativeStackNavigator();
 
-const Tab = createBottomTabNavigator();
+const Stack =
+createNativeStackNavigator();
 
 
-function Tabs() {
+
+
+
+function Navegacion() {
+
+
+  const {
+
+    userToken,
+
+    isLoading
+
+  } = useContext(AuthContext);
+
+
+
+  if (isLoading) {
+
+    return null;
+
+  }
+
+
 
   return (
 
-    <Tab.Navigator>
+    <NavigationContainer>
 
-      <Tab.Screen
-        name="Inicio"
-        component={InicioScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
 
-      <Tab.Screen
-        name="Servicios"
-        component={ServiciosScreen}
-      />
+      <Stack.Navigator>
 
-      <Tab.Screen
-        name="Contacto"
-        component={ContactoScreen}
-      />
 
-    </Tab.Navigator>
+        {
+          userToken ? (
+
+            <>
+
+
+              <Stack.Screen
+
+                name="Principal"
+
+                component={InicioScreen}
+
+                options={{
+
+                  headerShown:false
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Productos"
+
+                component={ProductosScreen}
+
+                options={{
+
+                  title:'Productos'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="CrearProducto"
+
+                component={CrearProductoScreen}
+
+                options={{
+
+                  title:'Crear Producto'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Inventario"
+
+                component={InventarioScreen}
+
+                options={{
+
+                  title:'Inventario'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Ventas"
+
+                component={VentasScreen}
+
+                options={{
+
+                  title:'Ventas'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Clientes"
+
+                component={ClientesScreen}
+
+                options={{
+
+                  title:'Clientes'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Reportes"
+
+                component={ReportesScreen}
+
+                options={{
+
+                  title:'Reportes'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Usuarios"
+
+                component={UsuariosScreen}
+
+                options={{
+
+                  title:'Usuarios'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Solicitudes"
+
+                component={SolicitudesScreen}
+
+                options={{
+
+                  title:'Solicitudes'
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="DetalleSolicitud"
+
+                component={DetalleSolicitudScreen}
+
+                options={{
+
+                  title:'Detalle de Solicitud'
+
+                }}
+
+              />
+
+
+            </>
+
+
+          ) : (
+
+
+            <>
+
+
+              <Stack.Screen
+
+                name="InicioSesion"
+
+                component={InicioSesionScreen}
+
+                options={{
+
+                  headerShown:false
+
+                }}
+
+              />
+
+
+
+              <Stack.Screen
+
+                name="Registro"
+
+                component={RegistroScreen}
+
+                options={{
+
+                  title:'Registro'
+
+                }}
+
+              />
+
+
+            </>
+
+
+          )
+
+        }
+
+
+      </Stack.Navigator>
+
+
+    </NavigationContainer>
 
   );
+
 }
+
+
+
 
 
 export default function App() {
 
+
   return (
 
-    <ProductosProvider>
+    <AuthProvider>
 
-      <NavigationContainer>
 
-        <Stack.Navigator>
+      <ProductosProvider>
 
-          <Stack.Screen
-            name="InicioSesion"
-            component={InicioSesionScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
 
-          <Stack.Screen
-            name="Registro"
-            component={RegistroScreen}
-            options={{
-              title: 'Registro',
-            }}
-          />
+        <Navegacion />
 
-          <Stack.Screen
-            name="Principal"
-            component={Tabs}
-            options={{
-              headerShown: false,
-            }}
-          />
 
-          <Stack.Screen
-            name="Productos"
-            component={ProductosScreen}
-            options={{
-              title: 'Productos',
-            }}
-          />
+      </ProductosProvider>
 
-          <Stack.Screen
-            name="CrearProducto"
-            component={CrearProductoScreen}
-            options={{
-              title: 'Crear Producto',
-            }}
-          />
 
-          <Stack.Screen
-            name="Inventario"
-            component={ModulosBasicos}
-            initialParams={{
-              modulo: 'Inventario',
-            }}
-            options={{
-              title: 'Inventario',
-            }}
-          />
-
-          <Stack.Screen
-            name="Ventas"
-            component={ModulosBasicos}
-            initialParams={{
-              modulo: 'Ventas',
-            }}
-            options={{
-              title: 'Ventas',
-            }}
-          />
-
-          <Stack.Screen
-            name="Clientes"
-            component={ModulosBasicos}
-            initialParams={{
-              modulo: 'Clientes',
-            }}
-            options={{
-              title: 'Clientes',
-            }}
-          />
-
-          <Stack.Screen
-            name="Reportes"
-            component={ModulosBasicos}
-            initialParams={{
-              modulo: 'Reportes',
-            }}
-            options={{
-              title: 'Reportes',
-            }}
-          />
-
-          <Stack.Screen
-            name="Usuarios"
-            component={ModulosBasicos}
-            initialParams={{
-              modulo: 'Usuarios',
-            }}
-            options={{
-              title: 'Usuarios',
-            }}
-          />
-
-          <Stack.Screen
-            name="Solicitudes"
-            component={SolicitudesScreen}
-            options={{
-              title: 'Solicitudes',
-            }}
-          />
-
-          <Stack.Screen
-            name="DetalleSolicitud"
-            component={DetalleSolicitudScreen}
-            options={{
-              title: 'Detalle de Solicitud',
-            }}
-          />
-
-        </Stack.Navigator>
-
-      </NavigationContainer>
-
-    </ProductosProvider>
+    </AuthProvider>
 
   );
 
